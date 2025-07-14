@@ -20,7 +20,7 @@ public class Editora implements Serializable {
         return this.numPubs;
     }
 
-    void adicionarPub() {
+    void incPublicacao() {
         this.numPubs += 1;
     }
 }

@@ -1,6 +1,7 @@
-import reg_pubs.*;
+import java.io.IOException;
 
-import java.util.ArrayList;
+import reg_pubs.*;
+import reg_pubs.tipos.*;
 
 public class Principal {
     public static void main(String[] args) {
@@ -14,20 +15,28 @@ public class Principal {
 
         System.out.println("O'Reilly: " + oreilly.getNumPubs() + "\nEditora Três: " + tres.getNumPubs() + "\n\n");
 
-        RegPubs reg = new RegPubs();
+        RegPubs registro = new RegPubs();
 
-        reg.addEditora(oreilly);
-        reg.addEditora(tres);
+        registro.addEditora(oreilly);
+        registro.addEditora(tres);
 
-        reg.addPublicacao(headfirst);
-        reg.addPublicacao(oracle);
-        reg.addPublicacao(html5);
+        registro.addPublicacao(headfirst);
+        registro.addPublicacao(oracle);
+        registro.addPublicacao(html5);
 
-        System.out.println(reg);
-
-        reg.salvar("reg.pubs");
-
-        RegPubs registro = RegPubs.carregar("reg.pubs");
         System.out.println(registro);
+
+        try {
+            registro.salvar("reg.pubs");
+        } catch(IOException e) {
+
+        }
+
+        try {
+            RegPubs registro2 = RegPubs.carregar("reg.pubs");
+            System.out.println(registro2);
+        } catch(IOException | ClassNotFoundException e) {
+
+        }
     }
 }

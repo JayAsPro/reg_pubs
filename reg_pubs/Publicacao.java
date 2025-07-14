@@ -13,7 +13,7 @@ public abstract class Publicacao implements Serializable {
         this.assunto = assunto;
         this.edicao = edicao;
         this.editora = editora;
-        this.editora.adicionarPub();
+        this.editora.incPublicacao();
     }
 
     protected String toStringPadrao() {

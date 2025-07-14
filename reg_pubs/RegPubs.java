@@ -27,29 +27,35 @@ public class RegPubs implements Serializable {
     public void addPublicacao(Publicacao publicacao) {
         this.publicacoes.add(publicacao);
     }
-    
-    public static RegPubs carregar(String caminhoArquivo) {
-        RegPubs reg = null;
 
-        try(ObjectInputStream registro = new ObjectInputStream(new FileInputStream(caminhoArquivo))) {
-            reg = (RegPubs) registro.readObject();
-        } catch(IOException|ClassNotFoundException e) {
-            e.printStackTrace();
+    public Editora buscarEditora(String nome) {
+        for(Editora editora : this.editoras) {
+            if(editora.nome == nome)
+                return editora;
         }
 
-        return reg;
+        return null;
     }
 
-    public void salvar(String caminhoArquivo) {
-        try(ObjectOutputStream registro = new ObjectOutputStream(new FileOutputStream(caminhoArquivo))) {
-            registro.writeObject(this);
-        } catch(IOException e) {
-            e.printStackTrace();
+    public Publicacao buscarPublicacao(String nome) {
+        for(Publicacao publicacao : this.publicacoes) {
+            if(publicacao.nome == nome)
+                return publicacao;
         }
+
+        return null;
+    }
+
+    public static RegPubs carregar(String caminhoArquivo) throws IOException, ClassNotFoundException {
+        return (RegPubs) new ObjectInputStream(new FileInputStream(caminhoArquivo)).readObject();
+    }
+
+    public void salvar(String caminhoArquivo) throws IOException {
+        new ObjectOutputStream(new FileOutputStream(caminhoArquivo)).writeObject(this);
     }
 
     public String toString() {
-        String listaConteudo = "[[REGISTRO DE PUBLICAÇÕES]]\n\n";
+        String listaConteudo = "";
 
         for(Editora editora : this.editoras) {
             listaConteudo = listaConteudo + editora.toString() + "\n";
